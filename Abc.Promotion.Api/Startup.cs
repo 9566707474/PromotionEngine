@@ -1,5 +1,6 @@
 namespace Abc.Promotion.Api
 {
+    using Abc.Promotion.Api.Service;
     using MediatR;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -38,6 +39,7 @@ namespace Abc.Promotion.Api
             });
 
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddScoped<IApplyPromo, ApplyPromo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
