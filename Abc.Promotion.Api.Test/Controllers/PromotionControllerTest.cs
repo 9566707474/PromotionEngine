@@ -44,5 +44,31 @@
             Assert.Equal(100, response.TotalAmount);
             Assert.Equal(0, response.TotalDiscount);
         }
+
+        [Fact]
+        public async Task ApplyPricePromotionShouldSuccessScenario2()
+        {
+            var cart = new Cart()
+            {
+                Products = new List<Product>()
+                {
+                    new Product { ProductCode = 'A',Price = 50, Quantity= 4, TotalPrice = 200 },
+                    new Product { ProductCode = 'B',Price = 30, Quantity= 5, TotalPrice= 150 },
+                    new Product { ProductCode = 'C',Price = 20, Quantity= 1,TotalPrice = 20 },
+                }
+            };
+
+            var formatter = new JsonMediaTypeFormatter();
+
+            // The endpoint or route of the controller action.
+            var httpResponse = await _client.PostAsync<Cart>("/api/promotion", cart, formatter);
+
+            // Deserialize and examine results.
+            var stringResponse = await httpResponse.Content.ReadAsStringAsync();
+            var response = JsonConvert.DeserializeObject<Cart>(stringResponse);
+            Assert.IsAssignableFrom<Cart>(response);
+            Assert.Equal(320, response.TotalAmount);
+            Assert.Equal(50, response.TotalDiscount);
+        }
     }
 }
