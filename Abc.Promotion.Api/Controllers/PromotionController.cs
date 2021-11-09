@@ -1,6 +1,7 @@
 ﻿namespace Abc.Promotion.Api.Controllers
 {
     using Abc.Promotion.Api.Models;
+    using Abc.Promotion.Api.Service;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
     using System;
@@ -23,7 +24,10 @@
         {
             try
             {
-                throw new System.NotImplementedException();
+                return await _mediator.Send(new ApplyPromoRequest
+                {
+                    Cart = cart
+                });
             }
             catch (Exception ex)
             {
