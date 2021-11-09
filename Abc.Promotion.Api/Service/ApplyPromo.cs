@@ -12,6 +12,13 @@
     {
         private readonly List<IPromoRule> _rules = new List<IPromoRule>();
 
+        public ApplyPromo()
+        {
+            _rules.Add(new FirstProductRule());
+            _rules.Add(new SecondProductRule());
+            _rules.Add(new ThirdProductRule());
+        }
+
         public Cart Execute(Cart cart)
         {
             if (cart?.Products == null || cart.Products.Count == 0)
